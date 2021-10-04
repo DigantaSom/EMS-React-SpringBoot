@@ -1,11 +1,13 @@
+import { Link } from 'react-router-dom';
+
 const Header = () => {
   return (
     <header>
       <nav className='navbar navbar-expand-md navbar-dark bg-dark'>
         <div>
-          <a href='/' className='navbar-brand'>
+          <Link to='/' className='navbar-brand'>
             Employee Management System
-          </a>
+          </Link>
         </div>
       </nav>
     </header>
