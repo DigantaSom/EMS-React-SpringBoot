@@ -1,0 +1,39 @@
+####### Backend #######
+
+ems-backend/HELP.md
+ems-backend/target/
+ems-backend/!.mvn/wrapper/maven-wrapper.jar
+ems-backend/!**/src/main/**/target/
+ems-backend/!**/src/test/**/target/
+
+### STS ###
+ems-backend/.apt_generated
+ems-backend/.classpath
+ems-backend/.factorypath
+ems-backend/.project
+ems-backend/.settings
+ems-backend/.springBeans
+ems-backend/.sts4-cache
+
+### IntelliJ IDEA ###
+ems-backend/.idea
+ems-backend/*.iws
+ems-backend/*.iml
+ems-backend/*.ipr
+
+### NetBeans ###
+ems-backend/nbproject/private/
+ems-backend/nbbuild/
+ems-backend/dist/
+ems-backend/nbdist/
+ems-backend/.nb-gradle/
+ems-backend/build/
+ems-backend/!**/src/main/**/build/
+ems-backend/!**/src/test/**/build/
+
+
+####### Frontend #######
+
+ems-frontend/.dist
+ems-frontend/node_modules
+
