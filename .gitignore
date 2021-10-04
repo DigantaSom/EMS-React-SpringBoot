@@ -36,4 +36,5 @@ ems-backend/!**/src/test/**/build/
 
 ems-frontend/.dist
 ems-frontend/node_modules
+ems-frontend/zz-helper.txt
 
