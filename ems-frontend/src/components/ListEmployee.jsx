@@ -11,6 +11,10 @@ const ListEmployee = ({ history }) => {
     });
   }, []);
 
+  const handleEditEmployee = id => {
+    history.push(`/update-employee/${id}`);
+  };
+
   return (
     <div>
       <h2 className='text-center'>Employees List</h2>
@@ -19,6 +23,8 @@ const ListEmployee = ({ history }) => {
           Add Employee
         </button>
       </div>
+      <br />
+      <br />
       <div className='row'>
         <table className='table table-striped table-bordered'>
           <thead>
@@ -30,11 +36,22 @@ const ListEmployee = ({ history }) => {
             </tr>
           </thead>
           <tbody>
-            {employees.map(employee => (
-              <tr key={employee.id}>
-                <td>{employee.firstName}</td>
-                <td>{employee.lastName}</td>
-                <td>{employee.emailId}</td>
+            {employees.map(({ id, firstName, lastName, emailId }) => (
+              <tr key={id}>
+                <td>{firstName}</td>
+                <td>{lastName}</td>
+                <td>{emailId}</td>
+                <td>
+                  <button className='btn btn-info' onClick={() => handleEditEmployee(id)}>
+                    Update
+                  </button>
+                  <button
+                    className='btn btn-danger'
+                    style={{ marginLeft: 10 }}
+                    onClick={() => {}}>
+                    Delete
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

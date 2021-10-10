@@ -1,12 +1,31 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
 import EmployeeService from '../services/EmployeeService';
 
-const CreateEmployee = ({ history }) => {
+const CreateOrUpdateEmployee = ({ match, history }) => {
+  const isUpdate = !!match.params.id;
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     emailId: '',
   });
+
+  useEffect(() => {
+    const populateForm = async () => {
+      try {
+        const response = await EmployeeService.getEmployeeById(match.params.id);
+        const { id, ...employee } = response.data;
+        setFormData(employee);
+      } catch (err) {
+        console.error('Error fetching employee by id: ' + err);
+      }
+    };
+
+    if (isUpdate) {
+      populateForm();
+    }
+  }, [isUpdate, match.params.id]);
 
   const { firstName, lastName, emailId } = formData;
 
@@ -20,9 +39,15 @@ const CreateEmployee = ({ history }) => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    EmployeeService.saveEmployee(formData)
-      .then(() => history.push('/'))
-      .catch(err => console.log(err));
+    if (isUpdate) {
+      EmployeeService.updateEmployee(match.params.id, formData)
+        .then(() => history.push('/'))
+        .catch(err => console.error('Error updating employee: ' + err));
+    } else {
+      EmployeeService.saveEmployee(formData)
+        .then(() => history.push('/'))
+        .catch(err => console.error('Error creating employee: ' + err));
+    }
   };
 
   const handleCancel = () => {
@@ -33,7 +58,7 @@ const CreateEmployee = ({ history }) => {
     <div className='container'>
       <div className='row'>
         <div className='card col-md-6 offset-md-3'>
-          <h3 className='text-center'>Add Employee</h3>
+          <h3 className='text-center'>{isUpdate ? 'Update' : 'Add'} Employee</h3>
           <div className='card-body'>
             <form onSubmit={handleSubmit}>
               <div className='form-group'>
@@ -76,7 +101,7 @@ const CreateEmployee = ({ history }) => {
                 type='submit'
                 className='btn btn-success'
                 style={{ marginRight: 10 }}>
-                Save
+                {isUpdate ? 'Update' : 'Save'}
               </button>
               <button type='button' className='btn btn-danger' onClick={handleCancel}>
                 Cancel
@@ -89,4 +114,4 @@ const CreateEmployee = ({ history }) => {
   );
 };
 
-export default CreateEmployee;
+export default CreateOrUpdateEmployee;
