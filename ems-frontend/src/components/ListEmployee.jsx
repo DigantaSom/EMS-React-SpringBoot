@@ -23,6 +23,10 @@ const ListEmployee = ({ history }) => {
       .catch(err => console.error('Error deleting employee: ', err));
   };
 
+  const handleViewEmployee = id => {
+    history.push(`/employee/${id}`);
+  };
+
   return (
     <div>
       <h2 className='text-center'>Employees List</h2>
@@ -58,6 +62,12 @@ const ListEmployee = ({ history }) => {
                     style={{ marginLeft: 10 }}
                     onClick={() => handleDeleteEmployee(id)}>
                     Delete
+                  </button>
+                  <button
+                    className='btn btn-info'
+                    style={{ marginLeft: 10 }}
+                    onClick={() => handleViewEmployee(id)}>
+                    View
                   </button>
                 </td>
               </tr>
