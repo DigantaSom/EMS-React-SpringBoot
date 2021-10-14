@@ -1,6 +1,8 @@
 package com.digantasom.ems.backend.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.digantasom.ems.backend.exception.ResourceNotFoundException;
 import com.digantasom.ems.backend.model.Employee;
@@ -49,5 +51,17 @@ public class EmployeeController {
 
 		Employee updatedEmployee = employeeRepository.save(employee);
 		return ResponseEntity.ok(updatedEmployee);
+	}
+
+	@DeleteMapping("/{id}/")
+	public ResponseEntity<Map<String, Boolean>> deleteEmployee(@PathVariable Long id) {
+		Employee employee = employeeRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Employee does not exist with id: " + id));
+
+		employeeRepository.delete(employee);
+
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("deleted", Boolean.TRUE);
+		return ResponseEntity.ok(response);
 	}
 }

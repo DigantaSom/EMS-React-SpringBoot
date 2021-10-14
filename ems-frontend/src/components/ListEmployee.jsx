@@ -15,6 +15,14 @@ const ListEmployee = ({ history }) => {
     history.push(`/update-employee/${id}`);
   };
 
+  const handleDeleteEmployee = id => {
+    EmployeeService.deleteEmployee(id)
+      .then(() => {
+        setEmployees(employees.filter(emp => emp.id !== id));
+      })
+      .catch(err => console.error('Error deleting employee: ', err));
+  };
+
   return (
     <div>
       <h2 className='text-center'>Employees List</h2>
@@ -48,7 +56,7 @@ const ListEmployee = ({ history }) => {
                   <button
                     className='btn btn-danger'
                     style={{ marginLeft: 10 }}
-                    onClick={() => {}}>
+                    onClick={() => handleDeleteEmployee(id)}>
                     Delete
                   </button>
                 </td>
